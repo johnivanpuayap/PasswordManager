@@ -32,6 +32,24 @@ def generate_password():
     entry_password.insert(0, password)
 
 
+# ---------------------------- SEARCH WEBSITE ------------------------------- #
+def search_website():
+    search = entry_website.get()
+
+    try:
+        with open('data.json', mode='r') as data_file:
+            data = json.load(data_file)
+            email = data[search]["email"]
+            password = data[search]["password"]
+    except FileNotFoundError:
+        messagebox.showerror("Oops", "No Data File Found")
+    except KeyError:
+        messagebox.showerror(search, "No details for the website exists")
+    else:
+        messagebox.showinfo(search, f"These are the details entered: \nEmail: {email} \nPassword: {password}")
+
+
+# ---------------------------- UPDATE DATA ------------------------------- #
 def update_data(data):
     with open('data.json', mode='w') as data_file:
         json.dump(data, data_file, indent=4)
@@ -95,18 +113,20 @@ label_password = Label(text='Password:')
 label_password.grid(column=0, row=3)
 
 # Entries
-entry_website = Entry(width=35)
-entry_website.grid(column=1, row=1, columnspan=2)
+entry_website = Entry(width=21)
+entry_website.grid(column=1, row=1)
 entry_website.focus()
 entry_email = Entry(width=35)
 entry_email.grid(column=1, row=2, columnspan=2)
 entry_email.insert(0, 'johnivanpuayap@gmail.com')
-entry_password = Entry(width=20)
+entry_password = Entry(width=21)
 entry_password.grid(column=1, row=3)
 
 # Buttons
 button_generate = Button(text='Generate Password', command=generate_password)
 button_generate.grid(column=2, row=3)
+button_search = Button(text='Search', command=search_website, width=14)
+button_search.grid(column=2, row=1)
 button_add = Button(text='Add', width=35, command=add_password)
 button_add.grid(column=1, row=4, columnspan=2)
 
