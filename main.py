@@ -54,12 +54,16 @@ def add_password():
                                        message=f"These are the details entered: \nEmail: {email} \nPassword: {password} \nIs it "
                                                f"okay to save?")
         if is_ok:
-            with open('data.json', mode='r') as data_file:
-                data = json.load(data_file)
-                data.update(new_data)
+            try:
+                with open('data.json', mode='r') as data_file:
+                    data = json.load(data_file)
+                    data.update(new_data)
 
-            with open('data.json', mode='w') as data_file:
-                json.dump(data, data_file, indent=4)
+                with open('data.json', mode='w') as data_file:
+                    json.dump(data, data_file, indent=4)
+            except:
+                with open('data.json', mode='w') as data_file:
+                    json.dump(new_data, data_file, indent=4)
 
             # clear the contents
             entry_website.delete(0, END)
