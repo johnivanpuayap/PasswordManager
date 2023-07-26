@@ -2,6 +2,14 @@
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
+def add_password():
+    website = entry_website.get()
+    email = entry_email.get()
+    password = entry_password.get()
+
+    with open('data.txt', mode='a')as file:
+        file.write(f"{website}  |  {email}  |  {password}\n")
+
 # ---------------------------- UI SETUP ------------------------------- #
 from tkinter import *
 # Window
@@ -36,7 +44,7 @@ entry_password.grid(column=1, row=3)
 # Buttons
 button_generate = Button(text='Generate Password')
 button_generate.grid(column=2, row=3)
-button_add = Button(text='Add', width=35)
+button_add = Button(text='Add', width=35, command=add_password)
 button_add.grid(column=1, row=4, columnspan=2)
 
 window.mainloop()
