@@ -64,10 +64,10 @@ def add_password():
                 data.update(new_data)
                 with open('data.json', mode='w') as data_file:
                     json.dump(data, data_file, indent=4)
-
-            # clear the contents
-            entry_website.delete(0, END)
-            entry_password.delete(0, END)
+            finally:
+                # clear the contents
+                entry_website.delete(0, END)
+                entry_password.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
