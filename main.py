@@ -1,3 +1,7 @@
+from tkinter import *
+from tkinter import messagebox
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -7,15 +11,27 @@ def add_password():
     email = entry_email.get()
     password = entry_password.get()
 
-    with open('data.txt', mode='a')as file:
-        file.write(f"{website}  |  {email}  |  {password}\n")
+    if website is "":
+        messagebox.showerror("No Website Entered", "Please enter a website")
+    elif password is "":
+        messagebox.showerror("No Password Entered", "Please enter a password")
+    elif email is "":
+        messagebox.showerror("No Email/Username Entered", "Please enter an email/password")
+    else:
+        is_ok = messagebox.askokcancel(title=website,
+                                       message=f"These are the details entered: \nEmail: {email} \nPassword: {password} \nIs it "
+                                               f"okay to save?")
+        if is_ok:
+            with open('data.txt', mode='a') as file:
+                file.write(f"{website}  |  {email}  |  {password}\n")
 
-    # clear the contents
-    entry_website.delete(0, END)
-    entry_password.delete(0, END)
+            # clear the contents
+            entry_website.delete(0, END)
+            entry_password.delete(0, END)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
-from tkinter import *
+
 # Window
 window = Tk()
 window.title("Password Manager")
