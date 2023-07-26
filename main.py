@@ -1,8 +1,32 @@
 from tkinter import *
 from tkinter import messagebox
+import random
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+               'v',
+               'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+               'R',
+               'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
+
+    password_list = random.choices(letters, k=nr_letters)
+    password_list.extend(random.choices(symbols, k=nr_symbols))
+    password_list.extend(random.choices(numbers, k=nr_numbers))
+
+    random.shuffle(password_list)
+    password = "".join(password_list)
+
+    entry_password.delete(0, END)
+    entry_password.insert(0, password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -11,11 +35,11 @@ def add_password():
     email = entry_email.get()
     password = entry_password.get()
 
-    if website is "":
+    if website == "":
         messagebox.showerror("No Website Entered", "Please enter a website")
-    elif password is "":
+    elif password == "":
         messagebox.showerror("No Password Entered", "Please enter a password")
-    elif email is "":
+    elif email == "":
         messagebox.showerror("No Email/Username Entered", "Please enter an email/password")
     else:
         is_ok = messagebox.askokcancel(title=website,
@@ -62,7 +86,7 @@ entry_password = Entry(width=20)
 entry_password.grid(column=1, row=3)
 
 # Buttons
-button_generate = Button(text='Generate Password')
+button_generate = Button(text='Generate Password', command=generate_password)
 button_generate.grid(column=2, row=3)
 button_add = Button(text='Add', width=35, command=add_password)
 button_add.grid(column=1, row=4, columnspan=2)
