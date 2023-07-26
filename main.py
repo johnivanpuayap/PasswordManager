@@ -42,9 +42,9 @@ def search_website():
             email = data[search]["email"]
             password = data[search]["password"]
     except FileNotFoundError:
-        messagebox.showerror("Oops", "No Data File Found")
+        messagebox.showerror("Error", "No Data File Found")
     except KeyError:
-        messagebox.showerror(search, "No details for the website exists")
+        messagebox.showerror("Error", "No details for the website exists")
     else:
         messagebox.showinfo(search, f"These are the details entered: \nEmail: {email} \nPassword: {password}")
 
