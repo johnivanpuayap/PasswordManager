@@ -10,6 +10,10 @@ def add_password():
     with open('data.txt', mode='a')as file:
         file.write(f"{website}  |  {email}  |  {password}\n")
 
+    # clear the contents
+    entry_website.delete(0, END)
+    entry_password.delete(0, END)
+
 # ---------------------------- UI SETUP ------------------------------- #
 from tkinter import *
 # Window
