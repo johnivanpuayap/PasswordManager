@@ -31,6 +31,9 @@ def generate_password():
     entry_password.delete(0, END)
     entry_password.insert(0, password)
 
+def update_data(data):
+    with open('data.json', mode='w') as data_file:
+        json.dump(data, data_file, indent=4)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -58,12 +61,10 @@ def add_password():
                 with open('data.json', mode='r') as data_file:
                     data = json.load(data_file)
             except FileNotFoundError:
-                with open('data.json', mode='w') as data_file:
-                    json.dump(new_data, data_file, indent=4)
+                update_data(new_data)
             else:
                 data.update(new_data)
-                with open('data.json', mode='w') as data_file:
-                    json.dump(data, data_file, indent=4)
+                update_data(data)
             finally:
                 # clear the contents
                 entry_website.delete(0, END)
